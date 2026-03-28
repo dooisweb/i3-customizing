@@ -11,6 +11,7 @@
 
 set $mod Mod4
 
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 12
@@ -234,7 +235,7 @@ bar {
     colors {
         focused_workspace  #ffffff #ffffff #000000
         active_workspace   #333333 #333333 #888888
-        inactive_workspace #222222 #222222 #888888
+        inactive_workspace #222222 #222222 #FFFFFF
         urgent_workspace   #ff5555 #ff5555 #ffffff
     }
 }
@@ -247,7 +248,7 @@ bar {
     colors {
         focused_workspace  #ffffff #ffffff #000000
         active_workspace   #333333 #333333 #888888
-        inactive_workspace #222222 #222222 #888888
+        inactive_workspace #222222 #222222 #FFFFFF
         urgent_workspace   #ff5555 #ff5555 #ffffff
     }
 }
@@ -259,7 +260,7 @@ bar {
     colors {
         focused_workspace  #ffffff #ffffff #000000
         active_workspace   #333333 #333333 #888888
-        inactive_workspace #222222 #222222 #888888
+        inactive_workspace #222222 #222222 #FFFFFF
         urgent_workspace   #ff5555 #ff5555 #ffffff
     }
 }

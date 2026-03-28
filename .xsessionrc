@@ -1,0 +1,1 @@
+export ADW_DEBUG_COLOR_SCHEME=prefer-dark

@@ -20,4 +20,9 @@ chmod +x ~/.config/i3/status_wrapper_edp.sh
 chmod +x ~/.config/i3/monitors.sh
 chmod +x ~/.config/i3/weather.sh
 
+# Dark theme for libadwaita apps
+mkdir -p ~/.local/share/applications
+cp "$SCRIPT_DIR"/desktop-overrides/org.gnome.Nautilus.desktop ~/.local/share/applications/
+cp "$SCRIPT_DIR"/.xsessionrc ~/.xsessionrc
+
 echo "i3 config installed. Reload i3 with Mod+Shift+R."
