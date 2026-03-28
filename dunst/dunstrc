@@ -1,0 +1,47 @@
+[global]
+    width = 400
+    height = 100
+    offset = 30x90
+    origin = top-right
+    transparency = 0
+    frame_width = 1
+    frame_color = "#cccccc"
+    font = DejaVu Sans Mono 10
+    markup = full
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    word_wrap = yes
+    padding = 8
+    horizontal_padding = 10
+    separator_height = 1
+    separator_color = "#555555"
+    corner_radius = 0
+
+[urgency_low]
+    background = "#1a1a1a"
+    foreground = "#eeeeee"
+    timeout = 5
+
+[urgency_normal]
+    background = "#1a1a1a"
+    foreground = "#ffffff"
+    timeout = 8
+
+[urgency_critical]
+    background = "#1a1a1a"
+    foreground = "#ff5555"
+    timeout = 0
+
+[global]
+    enable_posix_regex = true
+    icon_position = left
+    max_icon_size = 32
+    icon_path = /usr/share/icons/Yaru/16x16/status/:/usr/share/icons/Yaru/16x16/apps/:/usr/share/icons/hicolor/16x16/apps/
+
+[slack]
+    appname = Slack
+    new_icon = /snap/slack/current/usr/share/pixmaps/slack.png
+
+[google-calendar]
+    summary = ".*Calendar.*"
+    new_icon = /usr/share/icons/Papirus/32x32/apps/calendar.svg

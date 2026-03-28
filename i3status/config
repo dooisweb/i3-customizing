@@ -1,0 +1,59 @@
+general {
+    output_format = "i3bar"
+    colors = true
+    interval = 6
+}
+
+#order += "read_file weather"
+order += "cpu_usage"
+order += "memory"
+order += "wireless _first_interface"
+order += "ethernet enx68da73abb7fe"
+order += "battery all"
+order += "time"
+order += "disk"
+
+wireless wlp3s0 {
+    format_up = "W: (%quality at %essid, %bitrate, %frequency) %ip"
+    format_down = "W: down"
+}
+
+ethernet enx68da73abb7fe {
+    format_up = "E: %ip (%speed)"
+    format_down = "E: down"
+}
+
+
+battery all {
+    format = "%status %percentage"
+}
+
+time {
+    format = "%d-%m-%Y %H:%M:%S"
+}
+
+memory {
+     format = "RAM: %free MB/%total MB"
+     threshold_degraded = "20%"
+     threshold_critical = "10%"
+     color_good = "#00FF00"   # Green (Good)
+     color_degraded = "#FFFF00" # Yellow (Warning)
+     color_bad = "#FF0000"   # Red (Critical)
+}
+
+
+cpu_usage {
+    format = "CPU: %usage"
+    color_good = "#00FF00"   # Green (Low usage)
+    color_degraded = "#FFFF00" # Yellow (Medium usage)
+    color_bad = "#FF0000"   # Red (High usage)
+}
+
+
+#read_file weather {
+#    format = "🌡 %content"
+#    #format = "🌤 %content"
+#    path = "/tmp/weather.txt"
+#}
+
+
