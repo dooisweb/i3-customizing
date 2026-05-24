@@ -24,7 +24,8 @@ case "$1" in
     ;;
   --fzf)
     sel=$(fzf --disabled --ansi --layout=reverse --no-multi \
-              --prompt 'Find a file: ' --info=inline \
+              --prompt 'Find a file: ' --info=inline --pointer='▶' \
+              --color='bg+:#2f6fed,fg+:#ffffff,hl+:#ffffff,hl:#7aa2f7,pointer:#ffffff,prompt:#7aa2f7,info:#666666,gutter:-1' \
               --bind "change:reload($SELF --query {q})" \
               < /dev/null)
     # setsid so the opened app outlives this terminal when it closes.
