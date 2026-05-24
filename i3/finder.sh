@@ -1,10 +1,36 @@
 #!/bin/sh
-# Spotlight-like file search (Super+Space). Pull paths under $HOME from the
-# plocate index, drop hidden dirs and build noise, let rofi filter as you type,
-# then open the selection with its default app (xdg-open opens folders in Nautilus).
-sel=$(plocate "$HOME" 2>/dev/null \
-  | grep -vE '(^|/)\.|/node_modules/|/__pycache__/' \
-  | rofi -dmenu -i \
-      -theme-str 'window { width: 70%; } listview { lines: 16; } prompt { enabled: false; } entry { placeholder: "Type a file name..."; }')
+# Spotlight-like instant file search (Super+Space).
+#
+# Three modes:
+#   (default)  launch a small floating alacritty running this script in --fzf mode
+#   --fzf      the fzf UI; re-runs `--query` on every keystroke so it stays instant
+#   --query Q  per-keystroke plocate lookup: paths under $HOME matching Q
+#
+# Per-keystroke querying is what keeps it fast regardless of how many files are
+# indexed (the popup only ever holds the matches for what you typed), unlike
+# dumping the whole home tree into the picker.
 
-[ -n "$sel" ] && exec xdg-open "$sel"
+SELF="$HOME/.config/i3/finder.sh"
+
+case "$1" in
+  --query)
+    q="$2"
+    # plocate uses trigrams; queries shorter than 3 chars force a slow full scan.
+    [ "${#q}" -lt 3 ] && exit 0
+    plocate -i -- "$q" 2>/dev/null \
+      | grep -E "^$HOME/" \
+      | grep -vE '(^|/)\.|/node_modules/|/__pycache__/' \
+      | head -n 500
+    ;;
+  --fzf)
+    sel=$(fzf --disabled --ansi --layout=reverse --no-multi \
+              --prompt 'Find a file: ' --info=inline \
+              --bind "change:reload($SELF --query {q})" \
+              < /dev/null)
+    # setsid so the opened app outlives this terminal when it closes.
+    [ -n "$sel" ] && setsid xdg-open "$sel" >/dev/null 2>&1
+    ;;
+  *)
+    exec alacritty --class finder -o font.size=14 -e "$SELF" --fzf
+    ;;
+esac

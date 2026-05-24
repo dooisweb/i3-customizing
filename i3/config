@@ -144,7 +144,8 @@ bindsym $mod+e layout toggle split
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-# Spotlight-like file search
+# Spotlight-like file search (fzf in a centered floating terminal)
+for_window [class="finder"] floating enable, resize set 70 ppt 60 ppt, move position center
 bindsym $mod+space exec --no-startup-id ~/.config/i3/finder.sh
 
 # focus the parent container
