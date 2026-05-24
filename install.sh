@@ -11,6 +11,7 @@ cp "$SCRIPT_DIR"/i3/status_wrapper.sh ~/.config/i3/status_wrapper.sh
 cp "$SCRIPT_DIR"/i3/status_wrapper_edp.sh ~/.config/i3/status_wrapper_edp.sh
 cp "$SCRIPT_DIR"/i3/monitors.sh ~/.config/i3/monitors.sh
 cp "$SCRIPT_DIR"/i3/alttab.sh ~/.config/i3/alttab.sh
+cp "$SCRIPT_DIR"/i3/finder.sh ~/.config/i3/finder.sh
 cp "$SCRIPT_DIR"/i3/weather.sh ~/.config/i3/weather.sh
 cp "$SCRIPT_DIR"/i3status/config ~/.config/i3status/config
 cp "$SCRIPT_DIR"/redshift.conf ~/.config/redshift.conf
@@ -20,6 +21,7 @@ chmod +x ~/.config/i3/status_wrapper.sh
 chmod +x ~/.config/i3/status_wrapper_edp.sh
 chmod +x ~/.config/i3/monitors.sh
 chmod +x ~/.config/i3/alttab.sh
+chmod +x ~/.config/i3/finder.sh
 chmod +x ~/.config/i3/weather.sh
 
 # Dark theme for libadwaita apps
