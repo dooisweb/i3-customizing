@@ -31,6 +31,8 @@ case "$1" in
     [ -n "$sel" ] && setsid xdg-open "$sel" >/dev/null 2>&1
     ;;
   *)
-    exec alacritty --class finder -o font.size=14 -e "$SELF" --fzf
+    exec alacritty --class finder \
+      -o font.size=11 -o font.offset.y=8 \
+      -e "$SELF" --fzf
     ;;
 esac
