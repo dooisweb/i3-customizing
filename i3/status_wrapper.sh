@@ -25,21 +25,6 @@ get_battery_meter() {
         echo "${meter}"
     fi
 }
-get_vol_meter() {
-    local vol=$1
-    local muted=$2
-    local steps=("▁" "▁" "▂" "▂" "▃" "▃")
-    if [[ $muted == "yes" ]]; then
-        echo "------"
-        return
-    fi
-    local filled=$(( vol * 6 / 100 ))
-    (( filled > 6 )) && filled=6
-    local meter=""
-    for ((i=0; i<filled; i++)); do meter+="${steps[$i]}"; done
-    for ((i=filled; i<6; i++)); do meter+="░"; done
-    echo "$meter"
-}
 S=15
 i3status -c ~/.config/i3status/config | while IFS= read -r line; do
     if [[ $line == '{"version":'* ]]; then
@@ -53,7 +38,8 @@ i3status -c ~/.config/i3status/config | while IFS= read -r line; do
         local is_muted="no"
         [[ $mute == *"yes"* ]] && is_muted="yes"
         vol_num=$(echo "$vol" | grep -oP '[0-9]+' | head -1)
-        vol_meter=$(get_vol_meter "${vol_num:-0}" "$is_muted")
+        vol_text="${vol_num:-0}%"
+        [[ $is_muted == "yes" ]] && vol_text="mute"
         # Update weather every 10 min
         if [[ ! -f /tmp/weather.txt ]] || [[ $(( $(date +%s) - $(stat -c %Y /tmp/weather.txt) )) -gt 600 ]]; then
             ~/.config/i3/weather.sh &
@@ -75,6 +61,6 @@ i3status -c ~/.config/i3status/config | while IFS= read -r line; do
         if [[ $line == ',['* ]]; then
             prefix=","
         fi
-        echo "${prefix}[{\"full_text\":\"${vol_meter}\",\"separator_block_width\":${S}},{\"full_text\":\"<b>CPU</b> ${cpu_temp}°\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"RAM ${ram_bar}\",\"separator_block_width\":${S}},{\"full_text\":\"${bat_meter} ${bat_pct}%\",\"color\":\"#FFFFFF\",\"separator_block_width\":${S}},{\"full_text\":\"<b>T</b> ${weather}\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"${full_date}\",\"separator_block_width\":${S}},{\"full_text\":\"<b>BR</b> ${br_time}\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"<b>NL</b> ${nl_time}\",\"markup\":\"pango\"}]"
+        echo "${prefix}[{\"full_text\":\"<b>V</b> ${vol_text}\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"<b>CPU</b> ${cpu_temp}°\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"RAM ${ram_bar}\",\"separator_block_width\":${S}},{\"full_text\":\"${bat_meter} ${bat_pct}%\",\"color\":\"#FFFFFF\",\"separator_block_width\":${S}},{\"full_text\":\"<b>T</b> ${weather}\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"${full_date}\",\"separator_block_width\":${S}},{\"full_text\":\"<b>BR</b> ${br_time}\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"<b>NL</b> ${nl_time}\",\"markup\":\"pango\"}]"
     fi
 done
