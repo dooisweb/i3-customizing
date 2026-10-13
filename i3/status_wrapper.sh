@@ -57,10 +57,11 @@ i3status -c ~/.config/i3status/config | while IFS= read -r line; do
         bat_status=$(echo "$bat_text" | awk '{print $1}')
         bat_pct=$(echo "$bat_text" | grep -oP '[0-9.]+' | head -1 | cut -d. -f1)
         bat_meter=$(get_battery_meter "${bat_pct:-0}" "$bat_status")
+        flight=$(~/Documents/flight-tracker/i3/flight_block.sh)
         prefix=""
         if [[ $line == ',['* ]]; then
             prefix=","
         fi
-        echo "${prefix}[{\"full_text\":\"<b>V</b> ${vol_text}\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"<b>CPU</b> ${cpu_temp}°\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"RAM ${ram_bar}\",\"separator_block_width\":${S}},{\"full_text\":\"${bat_meter} ${bat_pct}%\",\"color\":\"#FFFFFF\",\"separator_block_width\":${S}},{\"full_text\":\"<b>T</b> ${weather}\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"${full_date}\",\"separator_block_width\":${S}},{\"full_text\":\"<b>BR</b> ${br_time}\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"<b>NL</b> ${nl_time}\",\"markup\":\"pango\"}]"
+        echo "${prefix}[${flight}{\"full_text\":\"<b>V</b> ${vol_text}\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"<b>CPU</b> ${cpu_temp}°\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"RAM ${ram_bar}\",\"separator_block_width\":${S}},{\"full_text\":\"${bat_meter} ${bat_pct}%\",\"color\":\"#FFFFFF\",\"separator_block_width\":${S}},{\"full_text\":\"<b>T</b> ${weather}\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"${full_date}\",\"separator_block_width\":${S}},{\"full_text\":\"<b>BR</b> ${br_time}\",\"markup\":\"pango\",\"separator_block_width\":${S}},{\"full_text\":\"<b>NL</b> ${nl_time}\",\"markup\":\"pango\"}]"
     fi
 done
